@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { View, Image, Button } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
+import OptionsMenu from "react-native-options-menu";
+
 import { NavigationContainer, TabRouter } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -23,6 +25,8 @@ function Logo() {
         />
    );
 }
+
+const MoreIcon = ( <Feather name='more-vertical' color='#05375a' size={20} style={{ paddingRight: 15 }}/> )
 
 const ElectionStack = () => {
     return (  
@@ -55,14 +59,21 @@ const ElectionStack = () => {
                                 style={{ paddingRight: 15 }}
                                 onPress={() => {}}
                             />
-                            <Feather.Button 
+                            <OptionsMenu
+                                customButton={MoreIcon}
+                                //buttonStyle={{ width: 32, height: 8, margin: 7.5, resizeMode: "contain" }}
+                                destructiveIndex={1}
+                                options={["Polling Locations", "Registration Guide", "Quick Links", "Voter Help"]}
+                                //actions={[editPost, deletePost]}
+                    />
+                            {/* <Feather.Button 
                                 name='more-vertical'
                                 size={20}
                                 color='black'
                                 backgroundColor='#fff'
                                 style={{ paddingRight: 15 }}
                                 onPress={() => {}}
-                            />        
+                            />         */}
                         </View>
                     ),
                 }}   

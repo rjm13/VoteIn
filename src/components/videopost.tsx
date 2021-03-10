@@ -1,14 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 //import Video from 'react-native-video';
 import { Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 
 import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const VideoPost = () => {
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  const [isLiked, setIsLiked] = useState(false);
+
+  const [isDisliked, setIsDisliked] = useState(false);
+
+  const onLikePress = () => {
+    if ( isLiked === false ) {
+        setIsLiked(true);
+        setIsDisliked(false);
+    }
+    if ( isLiked === true ) {
+        setIsLiked(false);
+    }     
+  };
+
+  const onDislikePress = () => {
+    if ( isDisliked === false ) {
+        setIsDisliked(true);
+        setIsLiked(false);
+    }
+    if ( isDisliked === true ) {
+        setIsDisliked(false);
+    }     
+  };
 
   return (
     <View style={styles.container}>
@@ -22,11 +48,14 @@ const VideoPost = () => {
                     volume: 1.0,
                     rate: 1.0,
                     //shouldPlay: true,
-                    isLooping: true,  
+                    isLooping: true,
+                    //useNativeControls: isVisible ? true: false
                 }}
                 inFullscreen={true}
+                
             />
         </View>
+      
 
        <View style={styles.questionblock}>
            <Text style={styles.categorytext}>
@@ -37,6 +66,37 @@ const VideoPost = () => {
             </Text>
         </View>
 
+        
+        <TouchableWithoutFeedback
+          onPress={() => setIsVisible(!isVisible)}>
+          <View style={styles.votebutton}>
+            { isVisible ? (
+                <View style={styles.votebuttonblock}>
+
+                  <TouchableOpacity onPress={onDislikePress}>
+                    <View style={styles.buttoncircle}>
+                      <FontAwesome
+                        name={isDisliked ? 'thumbs-down' : 'thumbs-o-down'}
+                        size={50}
+                        color='white' />
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={onLikePress}>
+                    <View style={styles.buttoncircle}>
+                      <FontAwesome
+                        name={isLiked ? 'thumbs-up' : 'thumbs-o-up'}
+                        size={50}
+                        color='white' />
+                    </View>
+                  </TouchableOpacity>
+
+                </View>
+              ) : false
+            }
+          </View>
+        </TouchableWithoutFeedback>
+        
        <View style={styles.bottom}>
             <View style={styles.footer}>
                 <View style={styles.info}>
@@ -64,7 +124,6 @@ const VideoPost = () => {
             </View>
         </View>  
 
-
       <StatusBar style="light" />
     </View>
   );
@@ -78,12 +137,22 @@ const styles = StyleSheet.create({
   video: {
     position: 'absolute',
   },
-
   questionblock: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 20,
     paddingTop: 40,
-
+  },
+  votebutton: {
+    backgroundColor: 'transparent',
+    width: '100%',
+    height: '50%',
+    justifyContent: 'center',
+  },
+  buttoncircle: {
+     backgroundColor: 'rgba(0,0,0,0.5)',
+     paddingVertical: 20,
+     paddingHorizontal: 24,
+     borderRadius: 50,
   },
   questiontext: {
     color: '#fff',
@@ -100,7 +169,8 @@ const styles = StyleSheet.create({
   bottom: {
     justifyContent: 'flex-end',
     flex: 1,
-    marginBottom: 40
+    marginBottom: 40,
+    
   },
   footer: {
     flexDirection: 'row',
@@ -109,6 +179,10 @@ const styles = StyleSheet.create({
   },
   info: {
 
+  },
+  votebuttonblock: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   icons: {
     justifyContent: 'center',

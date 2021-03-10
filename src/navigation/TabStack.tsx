@@ -28,6 +28,56 @@ function Logo() {
 
 const MoreIcon = ( <Feather name='more-vertical' color='#05375a' size={20} style={{ paddingRight: 15 }}/> )
 
+const ProfileStack = () => {
+    return (  
+            <Stack.Navigator
+                screenOptions={{
+                    headerTitle: props => <Logo {...props} />,
+                    headerStyle: {
+                        backgroundColor: '#fff',
+                    },
+                    headerTitleStyle: {
+                        fontSize: 16,
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleContainerStyle: {
+                        //height: '200%',
+                        //marginTop: 40
+                    },
+                    headerTintColor: '#fff',
+                    headerRight: () => (
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                                    }}
+                        >
+                            <Feather.Button 
+                                name='search'
+                                size={20}
+                                color='black'
+                                backgroundColor='#fff'
+                                style={{ paddingRight: 15 }}
+                                onPress={() => {}}
+                            />
+                            <OptionsMenu
+                                customButton={MoreIcon}
+                                //buttonStyle={{ width: 32, height: 8, margin: 7.5, resizeMode: "contain" }}
+                                destructiveIndex={1}
+                                options={["Polling Locations", "Registration Guide", "Quick Links", "Voter Help"]}
+                                //actions={[editPost, deletePost]}
+                    />
+                        </View>
+                    ),
+                }}   
+                >
+                <Stack.Screen 
+                    name='Profile'
+                    component={ProfileScreen}
+                />
+            </Stack.Navigator> 
+    );
+}
+
 const ElectionStack = () => {
     return (  
             <Stack.Navigator
@@ -66,14 +116,6 @@ const ElectionStack = () => {
                                 options={["Polling Locations", "Registration Guide", "Quick Links", "Voter Help"]}
                                 //actions={[editPost, deletePost]}
                     />
-                            {/* <Feather.Button 
-                                name='more-vertical'
-                                size={20}
-                                color='black'
-                                backgroundColor='#fff'
-                                style={{ paddingRight: 15 }}
-                                onPress={() => {}}
-                            />         */}
                         </View>
                     ),
                 }}   
@@ -81,6 +123,56 @@ const ElectionStack = () => {
                 <Stack.Screen 
                     name='Election'
                     component={ElectionScreen}
+                />
+            </Stack.Navigator> 
+    );
+}
+
+const QuestionStack = () => {
+    return (  
+            <Stack.Navigator
+                screenOptions={{
+                    headerTitle: props => <Logo {...props} />,
+                    headerStyle: {
+                        backgroundColor: '#fff',
+                    },
+                    headerTitleStyle: {
+                        fontSize: 16,
+                    },
+                    headerTitleAlign: 'center',
+                    headerTitleContainerStyle: {
+                        //height: '200%',
+                        //marginTop: 40
+                    },
+                    headerTintColor: '#fff',
+                    headerRight: () => (
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                                    }}
+                        >
+                            <Feather.Button 
+                                name='search'
+                                size={20}
+                                color='black'
+                                backgroundColor='#fff'
+                                style={{ paddingRight: 15 }}
+                                onPress={() => {}}
+                            />
+                            <OptionsMenu
+                                customButton={MoreIcon}
+                                //buttonStyle={{ width: 32, height: 8, margin: 7.5, resizeMode: "contain" }}
+                                destructiveIndex={1}
+                                options={["Ask a question", "Filter", "Sort"]}
+                                //actions={[editPost, deletePost]}
+                    />
+                        </View>
+                    ),
+                }}   
+                >
+                <Stack.Screen 
+                    name='QuestionFeed'
+                    component={QuestionFeedScreen}
                 />
             </Stack.Navigator> 
     );
@@ -107,7 +199,7 @@ const Tabs = () => {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === 'Profile') {
+                        if (route.name === 'ProfileStack') {
                             iconName = focused ? 'user' : 'user';
                         } else if (route.name === 'ElectionStack') {
                             iconName = focused ? 'check-square' : 'check';
@@ -118,7 +210,7 @@ const Tabs = () => {
                         else if (route.name === 'VideoFeed') {
                             iconName = focused ? 'tv' : 'tv';
                         }
-                        else if (route.name === 'QuestionFeed') {
+                        else if (route.name === 'QuestionStack') {
                             iconName = focused ? 'message-circle' : 'message-circle';
                         }
 
@@ -128,8 +220,8 @@ const Tabs = () => {
                 })}
             >
                 <Tab.Screen 
-                    name="Profile" 
-                    component={ProfileScreen} />
+                    name="ProfileStack" 
+                    component={ProfileStack} />
                 <Tab.Screen 
                     name="ElectionStack" 
                     component={ElectionStack} />
@@ -140,8 +232,8 @@ const Tabs = () => {
                     name="VideoFeed" 
                     component={VideoFeedScreen} />
                 <Tab.Screen 
-                    name="QuestionFeed" 
-                    component={QuestionFeedScreen} />
+                    name="QuestionStack" 
+                    component={QuestionStack} />
             </Tab.Navigator>
       </NavigationContainer>
     );

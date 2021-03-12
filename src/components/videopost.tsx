@@ -2,13 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 //import Video from 'react-native-video';
+import {Avatar} from 'react-native-paper';
 import { Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
+import { useNavigation } from '@react-navigation/native';
+
+import { BottomModalProvider, useBottomModal } from 'react-native-bottom-modal'
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const VideoPost = () => {
+
+  const navigation = useNavigation();
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -61,9 +67,26 @@ const VideoPost = () => {
            <Text style={styles.categorytext}>
                Fitness
            </Text>
-            <Text style={styles.questiontext}>
-                Do you believe that deadlifts should be done with a foward knuckle grip or an alternate grip?
-            </Text>
+           <TouchableOpacity onPress={() => navigation.navigate('QuestionStack', { screen: 'Question', initial: false })} 
+           >
+              <Text style={styles.questiontext}>
+                  Do you believe that deadlifts should be done with a foward knuckle grip or an alternate grip?
+              </Text>
+            </TouchableOpacity>
+        </View>
+
+        <View style={styles.navblock}>
+            <FontAwesome 
+              name='arrow-left'
+              size={20}
+              color='white'
+            />
+            <FontAwesome 
+              name='arrow-right'
+              size={20}
+              color='white'
+            />
+
         </View>
 
         
@@ -79,6 +102,9 @@ const VideoPost = () => {
                         name={isDisliked ? 'thumbs-down' : 'thumbs-o-down'}
                         size={50}
                         color='white' />
+                        <Text style={styles.count}>
+                          1.8k
+                        </Text>
                     </View>
                   </TouchableOpacity>
 
@@ -88,6 +114,9 @@ const VideoPost = () => {
                         name={isLiked ? 'thumbs-up' : 'thumbs-o-up'}
                         size={50}
                         color='white' />
+                        <Text style={styles.count}>
+                          1.8k
+                        </Text>
                     </View>
                   </TouchableOpacity>
 
@@ -99,6 +128,14 @@ const VideoPost = () => {
         
        <View style={styles.bottom}>
             <View style={styles.footer}>
+
+              <View style={styles.infoblock}>
+                <Avatar.Image
+                  source={{ uri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg'}}
+                  size={40}
+                  style={styles.avatar}
+                />
+
                 <View style={styles.info}>
                     <Text style={styles.name}>
                         Candidate Name
@@ -107,21 +144,42 @@ const VideoPost = () => {
                         Office of Government
                     </Text>
                 </View>
-                <View style={styles.icons}>
+              </View>
+
+              <View style={styles.icons}>
+                  <View>
                     <Entypo
-                        name='gauge'
-                        size={25}
-                        color='#fff'
-                        style={{ paddingHorizontal: 12 }}
+                      name='gauge'
+                      size={25}
+                      color='#fff'
+                      style={{ paddingHorizontal: 12 }}
                     />
-                    <Entypo
-                        name='share'
-                        size={25}
-                        color='#fff'
-                        style={{ paddingHorizontal: 12 }}
+                    <Text style={styles.icontext}>
+                      1.1k
+                    </Text>
+                  </View>
+                  
+                  <View>
+                    <FontAwesome
+                      name='share'
+                      size={25}
+                      color='#fff'
+                      style={{ paddingHorizontal: 12 }}
                     />
-                </View>
+                    <Text style={styles.icontext}>
+                      1.3k
+                    </Text>
+                  </View>
+                  
+              </View>
             </View>
+
+            <View style={styles.bottomblock}>
+                <Text style={styles.hashtags}>
+                  #Texas  #Austin  #TravisCounty
+                </Text>
+            </View>
+
         </View>  
 
       <StatusBar style="light" />
@@ -142,6 +200,11 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 40,
   },
+  navblock: {
+    flexDirection: 'row',
+    padding: 20,
+    justifyContent: 'space-between'
+  },
   votebutton: {
     backgroundColor: 'transparent',
     width: '100%',
@@ -151,13 +214,19 @@ const styles = StyleSheet.create({
   buttoncircle: {
      backgroundColor: 'rgba(0,0,0,0.5)',
      paddingVertical: 20,
-     paddingHorizontal: 24,
-     borderRadius: 50,
+     paddingHorizontal: 38,
+     borderRadius: 100,
   },
   questiontext: {
     color: '#fff',
     fontSize: 14,
     textAlign: 'center',
+  },
+  count: {
+    fontSize: 14,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 5,
   },
   categorytext: {
     color: '#fff',
@@ -169,16 +238,27 @@ const styles = StyleSheet.create({
   bottom: {
     justifyContent: 'flex-end',
     flex: 1,
-    marginBottom: 40,
+    marginBottom: 50,
     
+  },
+  bottomblock: {
+    marginHorizontal: 30,
+    //backgroundColor: 'red',
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,  
+    marginHorizontal: 20,
+    marginVertical: 10,
   },
   info: {
-
+    marginHorizontal: 10,
+  },
+  infoblock: {
+    flexDirection: 'row',
+  },
+  avatar: {
+    elevation: 2,
   },
   votebuttonblock: {
     flexDirection: 'row',
@@ -192,11 +272,23 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   office: {
     color: '#fff',
+    fontSize: 12,
+  },
+  icontext: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+    padding: 2,
+  },
+  hashtags: {
+    color: '#fff',
     fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 

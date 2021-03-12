@@ -1,82 +1,160 @@
 import React from 'react';
-import { StyleSheet, View, Text, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const QuestionTile = () => {
+    const navigation = useNavigation();
     return (
-        <SafeAreaView style={styles.tile}>
+        <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate('Question') }}>
+                <View style={styles.summarybox}>
+                    <Text style={styles.paragraph}>
+                        This is my question addressed to a person or an office. How long can this before it wraps off the screen?
+                    </Text>
+                </View>
+            </TouchableOpacity>
 
-            <View style={styles.votes}>
-                <FontAwesome
-                    name='thumbs-up'
-                    size={25}
-                    color='blue' />
-                <Text style={styles.votecount}>
-                    1,874
-                </Text>
+            <View style={styles.footer}>
+                <View style={styles.playersbutton}>
+                    <Text style={styles.footertext}>
+                        Immigration
+                    </Text>
+                </View>
+
+                <View style={styles.variationsbutton}>
+                    <Text style={styles.footertext}>
+                        Federal
+                    </Text>
+                </View>
             </View>
 
-            <View style={styles.questionblock}>
-                <Text style={styles.question}>
-                    This is my question tile. How long can this get and what happens when it gets too long? 
-                </Text>
-                <Text style={styles.subtext}>
-                    This is my subtext.
-                </Text>
-            </View>
+            <View style={styles.header}>
+                <View style={styles.titlebox}>
+                    <Text style={styles.timestamp}>
+                        Today 11:59pm
+                    </Text>
+                    <Text style={styles.username}>
+                        user(annonymousTexan)
+                    </Text>
+                </View>
+                <View style={styles.icons}>
 
-            <View style={styles.categoryicon}>
-                <FontAwesome
-                    name='space-shuttle'
-                    size={25}
-                    color='gray' />
-            </View>
+                    <View style={styles.iconbox}>
+                        <FontAwesome
+                            name='thumbs-o-up'
+                            color='#05375a'
+                            size={20}
+                        />
+                        <Text style={styles.icontext}>
+                            1.86k
+                        </Text>
+                    </View>
 
-            
-        </SafeAreaView>
+                    <View style={styles.iconbox}>
+                        <FontAwesome
+                            name='share'
+                            color='#05375a'
+                            size={20}
+                        />
+                        <Text style={styles.icontext}>
+                            842
+                        </Text>
+                    </View>
+
+                    <View style={styles.iconbox}>
+                        <FontAwesome5
+                            name='user-tag'
+                            color='#05375a'
+                            size={20}
+                        />
+                        <Text style={styles.icontext}>
+                            24
+                        </Text>
+                    </View>
+
+
+
+                </View>
+            </View>    
+
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    tile: {
-      backgroundColor: 'white',
-      width: Dimensions.get('window').width,
-      flexDirection: 'row',
-      //justifyContent: 'space-between',
-      padding: 20,
-    
-      borderBottomWidth: 0.3,
-      borderColor: 'gray',
-    },
-    votes: {
+    container: {
         justifyContent: 'center',
-        paddingRight: 20,
-        //backgroundColor: 'red',
+        borderBottomWidth: .3,
+        borderColor: 'gray',
+        marginTop: 10,
+        backgroundColor: '#fff',
     },
-    votecount: {
+    titlebox: {
+        
+    },
+    header: {
+        marginHorizontal: 20,
+        marginBottom: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    timestamp: {
+        fontSize: 14,
+        color: 'black',
+    },
+    username: {
+        fontSize: 11,
+        color: 'gray'
+    },
+    icons: {
+        flexDirection: 'row',
+        
+    },
+    iconbox: {
+        paddingHorizontal: 10,
+    },
+    icontext: {
+        paddingTop: 5,
         fontSize: 9,
-        color: 'gray',
-        marginVertical: 6,
+        //backgroundColor: 'yellow',
+        textAlign: 'center',
     },
-    questionblock: {
-        justifyContent: 'flex-start',
-        width: '70%',
-        //backgroundColor: 'green',
+    summarybox: {
+        //backgroundColor: '#E9E9EA',
+        marginHorizontal: 10,
+        //borderRadius: 8,
+        marginBottom: 10,
     },
-    question: {
-        fontSize: 13,
+    paragraph: {
+        fontSize: 14,
+        marginHorizontal: 8,
         fontWeight: 'bold',
     },
-    subtext: {
-        marginTop: 10,
-        fontSize: 12,
-        color: 'gray',
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 16,
     },
-    categoryicon: {
-        justifyContent: 'center',
-        paddingLeft: 20,
-        //backgroundColor: 'pink',
+    playersbutton: {
+        borderRadius: 4,
+        backgroundColor: '#9ed3ff',
+        marginHorizontal: 16,
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+    },
+    variationsbutton: {
+        borderRadius: 4,
+        backgroundColor: '#D9D1B2',
+        marginHorizontal: 16,
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+    },
+    footertext: {
+        fontSize: 14,
     },
   });
   

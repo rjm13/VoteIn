@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 //import Video from 'react-native-video';
 import {Avatar} from 'react-native-paper';
@@ -7,12 +7,21 @@ import { Video } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import { useNavigation } from '@react-navigation/native';
 
-import { BottomModalProvider, useBottomModal } from 'react-native-bottom-modal'
+import { Modalize } from 'react-native-modalize';
+import { Host, Portal } from 'react-native-portalize';
+import {BottomModal} from '../components/bottommodal';
+
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const VideoPost = () => {
+
+  const modalRef = useRef<Modalize>(null);
+
+  const onOpen = () => {
+    modalRef.current?.open();
+  };
 
   const navigation = useNavigation();
 
@@ -64,9 +73,11 @@ const VideoPost = () => {
       
 
        <View style={styles.questionblock}>
-           <Text style={styles.categorytext}>
-               Fitness
-           </Text>
+          <TouchableOpacity onPress={onOpen}>
+            <Text style={styles.categorytext}>
+                Fitness
+            </Text>
+           </TouchableOpacity>
            <TouchableOpacity onPress={() => navigation.navigate('QuestionStack', { screen: 'Question', initial: false })} 
            >
               <Text style={styles.questiontext}>
@@ -183,7 +194,15 @@ const VideoPost = () => {
         </View>  
 
       <StatusBar style="light" />
+
+      <Portal>
+        <Modalize ref={modalRef}>
+          <BottomModal />
+        </Modalize>
+      </Portal>
     </View>
+
+
   );
 }
 

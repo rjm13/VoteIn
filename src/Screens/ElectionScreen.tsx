@@ -11,7 +11,7 @@ const ElectionScreen = () => {
       
       <View style={styles.block}>
         <Text style={styles.title}>
-          Upcoming Elections
+          My Ballots
         </Text>
       </View>
 
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     marginBottom: 40,
+    //backgroundColor: 'white',
   },
   block: {
     margin: 20,

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { View, Image, Button } from 'react-native';
+
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import OptionsMenu from "react-native-options-menu";
 
@@ -14,8 +16,12 @@ import DiscoverScreen from '../Screens/DiscoverScreen';
 import VideoFeedScreen from '../Screens/VideoFeedScreen';
 import QuestionFeedScreen from '../Screens/QuestionFeedScreen';
 
+import QuestionScreen from '../Screens/QuestionScreen';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+import { Host, Portal } from 'react-native-portalize';
 
 function Logo() {
     return (
@@ -26,7 +32,7 @@ function Logo() {
    );
 }
 
-const MoreIcon = ( <Feather name='more-vertical' color='#05375a' size={20} style={{ paddingRight: 15 }}/> )
+const MoreIcon = ( <Feather name='more-vertical' color='#05375a' size={20} style={{ paddingRight: 20 }}/> )
 
 const ProfileStack = () => {
     return (  
@@ -45,6 +51,14 @@ const ProfileStack = () => {
                         //marginTop: 40
                     },
                     headerTintColor: '#fff',
+                    headerLeft: () => (
+                        <FontAwesome 
+                            name='institution'
+                            size={20}
+                            color='gold'
+                            style={{ paddingLeft: 20 }}
+                        />
+                    ),
                     headerRight: () => (
                         <View style={{
                             flexDirection: 'row',
@@ -56,7 +70,7 @@ const ProfileStack = () => {
                                 size={20}
                                 color='black'
                                 backgroundColor='#fff'
-                                style={{ paddingRight: 15 }}
+                                style={{ paddingRight: 20 }}
                                 onPress={() => {}}
                             />
                             <OptionsMenu
@@ -174,6 +188,14 @@ const QuestionStack = () => {
                     name='QuestionFeed'
                     component={QuestionFeedScreen}
                 />
+                <Stack.Screen 
+                    name='Question'
+                    component={QuestionScreen}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+
             </Stack.Navigator> 
     );
 }
@@ -184,6 +206,7 @@ const Tabs = () => {
 
     return (
         <NavigationContainer>
+            <Host>
             <Tab.Navigator
                 tabBarOptions={{
                     activeTintColor: 'black',
@@ -235,6 +258,7 @@ const Tabs = () => {
                     name="QuestionStack" 
                     component={QuestionStack} />
             </Tab.Navigator>
+            </Host>
       </NavigationContainer>
     );
   }

@@ -17,6 +17,8 @@ import VideoFeedScreen from '../Screens/VideoFeedScreen';
 import QuestionFeedScreen from '../Screens/QuestionFeedScreen';
 
 import QuestionScreen from '../Screens/QuestionScreen';
+import Ballot from '../components/ballot';
+import CandidatePage from '../Screens/CandidatePage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -77,7 +79,7 @@ const ProfileStack = () => {
                                 customButton={MoreIcon}
                                 //buttonStyle={{ width: 32, height: 8, margin: 7.5, resizeMode: "contain" }}
                                 destructiveIndex={1}
-                                options={["Polling Locations", "Registration Guide", "Quick Links", "Voter Help"]}
+                                options={["Edit Profile", "App Settings", "Share Profile"]}
                                 //actions={[editPost, deletePost]}
                     />
                         </View>
@@ -92,7 +94,9 @@ const ProfileStack = () => {
     );
 }
 
-const ElectionStack = () => {
+const ElectionStack = ({ navigation}) => {
+
+
     return (  
             <Stack.Navigator
                 screenOptions={{
@@ -109,6 +113,15 @@ const ElectionStack = () => {
                         //marginTop: 40
                     },
                     headerTintColor: '#fff',
+                    headerLeft: () => (
+                        <Feather
+                            name='chevron-left'
+                            size={20}
+                            color='black'
+                            onPress={() => { navigation.navigate('Election') }}
+                            style={{paddingHorizontal: 20}}
+                        />
+                    ),
                     headerRight: () => (
                         <View style={{
                             flexDirection: 'row',
@@ -137,6 +150,19 @@ const ElectionStack = () => {
                 <Stack.Screen 
                     name='Election'
                     component={ElectionScreen}
+                    options={{
+                        headerLeft: null
+                    }}
+                />
+                <Stack.Screen 
+                    name='Ballot'
+                    component={Ballot}
+                />
+                <Stack.Screen 
+                    name='Candidate'
+                    component={CandidatePage}
+                    initialParams={{ selectedId: '1' }}
+                    //{ (props) => <CandidatePage {...props} myProp='selectedId'  /> }
                 />
             </Stack.Navigator> 
     );
@@ -201,7 +227,6 @@ const QuestionStack = () => {
 }
 
 const Tabs = () => {
-
 
 
     return (

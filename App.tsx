@@ -5,6 +5,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import TabStack from './src/navigation/TabStack';
 
 export default function App() {
+
+
   return (
     <TabStack />
   );

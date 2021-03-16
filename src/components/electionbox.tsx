@@ -1,11 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
+import { useNavigation } from '@react-navigation/native';
+
 const ElectionBox = () => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
 
+      <TouchableOpacity onPress={() => {navigation.navigate('Ballot') }}>
         <View style={styles.electionbox}>
           <View style={styles.electionblock}>
             <View style={styles.iconbox}>
@@ -33,7 +39,7 @@ const ElectionBox = () => {
           </View>
           
         </View>
-      
+        </TouchableOpacity>
     </View>
   );
 }

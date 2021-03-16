@@ -9,11 +9,43 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Modalize } from 'react-native-modalize';
 import { Host, Portal } from 'react-native-portalize';
-import {BottomModal} from '../components/bottommodal';
+import BottomModal from '../components/bottommodal';
 
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+const Item = ({ category }) => {
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const onCheck = () => {
+      if ( isChecked === false ) {
+          setIsChecked(true);
+      }
+      if ( isChecked === true ) {
+          setIsChecked(false);
+      }      
+  };
+
+  return (
+
+  <TouchableWithoutFeedback onPress={onCheck}>
+      <View style={styles.listcomponent}>
+          <FontAwesome 
+              name={isChecked ? 'check-square' : 'square-o'}
+              color={isChecked ? '#9ed3ff' : 'gray'}
+              size={20}
+              style={{paddingHorizontal: 20}}
+          />
+          <Text style={styles.listitem}>
+              {category}
+          </Text>
+      </View>
+  </TouchableWithoutFeedback>
+  
+  ); 
+}
 
 const VideoPost = () => {
 
@@ -50,6 +82,12 @@ const VideoPost = () => {
         setIsDisliked(false);
     }     
   };
+
+  const renderItem = ({ item }) => (
+    <Item 
+        category={item.category} 
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -196,10 +234,29 @@ const VideoPost = () => {
       <StatusBar style="light" />
 
       <Portal>
-        <Modalize ref={modalRef}>
+        {/* <Modalize ref={modalRef}>
           <BottomModal />
-        </Modalize>
+        </Modalize> */}
+
+        <Modalize
+          ref={modalRef}
+          flatListProps={{
+            data: BottomModal,
+            renderItem: renderItem,
+            keyExtractor: item => item.id,
+            showsVerticalScrollIndicator: false,
+            numColumns: 2,
+            ListHeaderComponent: () => {
+              return (
+                <View style={styles.filterheaderblock}>
+                    <Text style={styles.filterheader}>Filter</Text>
+                </View>
+              )
+            }
+          }}
+        />
       </Portal>
+
     </View>
 
 
@@ -308,6 +365,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  listcomponent: {
+    flexDirection: 'row',
+    padding: 10,
+    width: '45%',
+  },
+  listitem: {
+    fontSize: 16,
+  },
+  filterheader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  filterheaderblock: {
+    margin: 20,
   },
 });
 

@@ -6,6 +6,8 @@ import ballotdata from '../../dummydata/ballotdata';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
+import StickyHeaderFlatlist from 'react-native-sticky-header-flatlist';
+
 const Item = ({ avatar, name, endorsements, agree }) =>  {
 
     const navigation = useNavigation();
@@ -66,6 +68,7 @@ const BallotSections = () => {
             <SectionList
                 sections={ballotdata}
                 keyExtractor={(item, index) => item + index}
+                stickySectionHeadersEnabled={true}
                 renderItem={({ item }) => 
                     <Item 
                         name={item.name}
@@ -109,6 +112,7 @@ export default BallotSections;
 const styles = StyleSheet.create({
     container: {
       //flex: 1,
+      //backgroundColor: '#fff',
     },
     headerblock: {
       alignItems: 'center',
@@ -133,11 +137,12 @@ const styles = StyleSheet.create({
   
     },
     officeheader: {
-      marginHorizontal: 20,
-      marginBottom: 10,
-      marginTop: 20,
+      paddingHorizontal: 20,
+      paddingBottom: 10,
+      paddingTop: 20,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      backgroundColor: '#fff',
     },
     tile: {
       marginHorizontal: 10,

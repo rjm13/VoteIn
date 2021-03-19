@@ -1,63 +1,68 @@
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Button, View, Image, Text } from 'react-native';
+import * as VideoThumbnails from 'expo-video-thumbnails';
 
-const DATA = [
-  {
-    title: "Main dishes",
-    data: ["Pizza", "Burger", "Risotto"]
-  },
-  {
-    title: "Sides",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-  },
-  {
-    title: "Drinks",
-    data: ["Water", "Coke", "Beer"]
-  },
-  {
-    title: "Desserts",
-    data: ["Cheese Cake", "Ice Cream"]
-  }
-];
+export default function App() {
+  const [image, setImage] = useState(null);
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+  // const generateThumbnail = async () => {
+  //   try {
+  //     const { uri } = await VideoThumbnails.getThumbnailAsync(
+  //       'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //       {
+  //         time: 15000,
+  //       }
+  //     );
+  //     setImage(uri);
+  //   } catch (e) {
+  //     console.warn(e);
+  //   }
+  // };
 
-const Ballot = () => (
-  <SafeAreaView style={styles.container}>
-    
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <Item title={item} />}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.header}>{title}</Text>
-      )}
-    />
-  </SafeAreaView>
-);
+  useEffect(() => {
+    const generateThumbnail = async () => {
+      const { uri } = await VideoThumbnails.getThumbnailAsync(
+        'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+        {
+                  time: 15000,
+                }
+      );
+        // if (!userInfo) {
+        //   return;
+        
+      try {
+          if ({uri}) {
+            setImage(uri);      
+          }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    generateThumbnail();
+  }, [])
+
+
+
+  
+
+
+  return (
+    <View style={styles.container}>
+      
+      {<Image source={{ uri: image }} style={styles.image} />}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8
+  image: {
+    width: 200,
+    height: 200,
   },
-  header: {
-    fontSize: 32,
-    backgroundColor: "#fff"
-  },
-  title: {
-    fontSize: 24
-  }
 });
-
-export default Ballot;

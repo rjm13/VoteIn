@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet } from 'react-native';
 
-const CandidateProfile = () => {
+const CandidateProfileEndorsements = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headerblock}>
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default CandidateProfile;
+export default CandidateProfileEndorsements;

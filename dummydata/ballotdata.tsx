@@ -87,6 +87,31 @@ const DATA = [
             }
         ]
     },
+    {
+        office: 'House Representative',
+        data: [
+            {
+                id: '1',
+                name: 'Guy Whoneedstogo',
+                officelevel: 'State',
+                avatar: {uri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg'},
+                endorsements: '42',
+                agree: '65%',
+                selected: true,
+                endorsed: true,  
+            },
+            {
+                id: '2',
+                name: 'Notherguy Whoneedstogo',
+                officelevel: 'State',
+                avatar: {uri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg'},
+                endorsements: '42',
+                agree: '65%',
+                selected: true,
+                endorsed: true,  
+            }
+        ]
+    },
 ];
 
 export default DATA;

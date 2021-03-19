@@ -8,7 +8,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import Menu from '../components/CandidateProfileMenu';
 import Profile from '../components/CandidateProfile';
-
+import Endorsements from '../components/CandidateProfileEndorsements';
+import Responses from '../components/CandidateProfileResponses';
+import InTheNews from '../components/CandidateProfileInTheNews';
 
 
 
@@ -25,13 +27,13 @@ const CandidatePage = () => {
             return <Profile />;
         }
         else if(selectedId === '2' ){
-            return <Text>If-Else condition 2</Text>;
+            return <Endorsements />;
         }
         else if(selectedId === '3' ){
-            return <Text>If-Else condition 3</Text>;
+            return <Responses />;
         }
         else if(selectedId === '4' ){
-            return <Text>If-Else condition 4</Text>;
+            return <InTheNews />;
         }
         
     }
@@ -41,7 +43,10 @@ const CandidatePage = () => {
 
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView 
+            style={styles.container}
+            stickyHeaderIndices={[1]}
+            >
 
             <ImageBackground 
                 style={{ width: '100%', height: 400 }}
@@ -66,7 +71,11 @@ const CandidatePage = () => {
                     </View>
             </ImageBackground>  
 
-            <Menu />
+            <View>
+               <Menu /> 
+            </View>
+            
+            
            
            <View>
                {renderElement()}

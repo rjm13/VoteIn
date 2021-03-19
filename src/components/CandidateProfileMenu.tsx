@@ -5,6 +5,7 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ImageBackgro
 import {useNavigation, useRoute} from '@react-navigation/native';
 
 import Profile from '../components/CandidateProfile';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 
 const DATA = [
@@ -24,11 +25,20 @@ const DATA = [
       id: '4',
       title: 'In the News'
     },
+    {
+      id: '5',
+      title: 'Voting Record'
+    },
+    {
+      id: '6',
+      title: 'Platform'
+    },
+
   ];
   
   const Item = ({ title, onPress, style, textstyle }) => (
 
-    <TouchableOpacity 
+    <TouchableWithoutFeedback 
       onPress={onPress}
       style={styles.content}>
           <View style={[styles.menubutton, style]}>
@@ -36,7 +46,7 @@ const DATA = [
                             {title}
                         </Text>
                     </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
     
   );
   
@@ -115,15 +125,17 @@ const DATA = [
   
   const styles = StyleSheet.create({
     container: {
-      marginHorizontal: 16,
+      //marginHorizontal: 20,
       //marginVertical: 16,
       //flex: 1,
       //marginTop: StatusBar.currentHeight || 0,
     },
     content: {
       //flex: 1,
-      marginTop: 8,
-      marginHorizontal: 8,
+      paddingTop: 20,
+      paddingBottom: 10,
+      paddingHorizontal: 8,
+      backgroundColor: '#fff',
     },
     
     menubutton: {
